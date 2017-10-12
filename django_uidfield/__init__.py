@@ -1,5 +1,8 @@
 from pkg_resources import get_distribution, DistributionNotFound
 
+from .fields import UIDField
+from .misc import new_uid
+
 try:
     _dist = get_distribution('django-uidfield')
 except DistributionNotFound:
