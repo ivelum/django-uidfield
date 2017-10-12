@@ -20,7 +20,7 @@ class UIDModel(models.Model):
         for save_attempt in range(self.max_save_attempts):
             try:
                 with transaction.atomic():
-                    return super().save(*args, **kwargs)
+                    return super(UIDModel, self).save(*args, **kwargs)
             except IntegrityError as e:
                 uid_fields = self.uid_fields()
                 if not any(field.attname in str(e) for field in uid_fields):

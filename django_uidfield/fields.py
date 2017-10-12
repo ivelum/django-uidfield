@@ -13,7 +13,7 @@ class UIDField(models.CharField):
                  *args, **kwargs):
         self.prefix = prefix
         self.chars = chars
-        super().__init__(*args, **kwargs)
+        super(UIDField, self).__init__(*args, **kwargs)
 
     def populate(self, model_instance, force_renew=False):
         uid = getattr(model_instance, self.attname, None)
