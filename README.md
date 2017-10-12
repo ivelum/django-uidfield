@@ -4,15 +4,14 @@
 Introduction
 ------------
 
-Django-uidfield is a package which includes class UIDField for models.
-
-It allows you to create unique string fields with any length and any fixed prefix.
+Pretty UID fields for your Django models, with customizable prefixes and controlled length. Tested vs. Python 2.7, 3.5, 3.6 and Django 1.8 - 1.11.
 
 
 Usage
 -----
-You can use the field `UIDField` in your models directly or inherit your model from the class `UIDModel` and use the field there.
-The reason in using `UIDModel` is to try to save data again automatically if the IntergrityError occurs.
+
+See examples below. You can optionally inherit your models from `UIDModel`, which gracefully handles IntergrityError on saving UIDs, making up to 3 attempts with random UIDs. Integrity errors should be pretty rare if you use large enough `max_length` on your fields, but you may still want to use it for extra safety.
+
 ```python
 from django_uidfield.fields import UIDField
 
