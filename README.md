@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/ivelum/django-uidfield.png)](http://travis-ci.org/ivelum/django-uidfield)
+[![PyPI version](https://badge.fury.io/py/django-uidfield.svg)](https://badge.fury.io/py/django-uidfield)
 
 Introduction
 ------------
