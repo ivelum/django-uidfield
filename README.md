@@ -1,8 +1,8 @@
 [![Build Status](https://secure.travis-ci.org/ivelum/django-uidfield.png)](http://travis-ci.org/ivelum/django-uidfield)
 [![PyPI version](https://badge.fury.io/py/django-uidfield.svg)](https://badge.fury.io/py/django-uidfield)
 
-Introduction
-------------
+About
+-----
 
 Pretty UID fields for your Django models, with customizable prefixes and controlled length. Tested vs. Python 2.7, 3.5, 3.6 and Django 1.8 - 1.11.
 
