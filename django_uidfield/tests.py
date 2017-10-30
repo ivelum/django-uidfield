@@ -1,6 +1,5 @@
 import re
 
-from django.db import models
 from django.test import TestCase
 
 from .fields import UIDField

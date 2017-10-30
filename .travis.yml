@@ -14,6 +14,7 @@ matrix:
     allow_failures:
       - env: TOX_ENV=djangomaster
 install:
-    - pip install tox
+    - pip install tox flake8
 script:
+    - flake8 django_uidfield
     - tox -e $TOX_ENV
