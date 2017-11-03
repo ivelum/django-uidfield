@@ -12,6 +12,10 @@ class TestModel(UIDModel):
     uid_field = UIDField(prefix='tmp_', max_length=20, unique=True)
 
 
+class TestModelWithPk(UIDModel):
+    id = UIDField(primary_key=True, prefix='pk_', max_length=20)
+
+
 class UIDFieldTest(TestCase):
     """UIDField Wrapper Tests"""
 
@@ -33,3 +37,11 @@ class UIDFieldTest(TestCase):
         second_obj.save()
         self._check_field_value(second_obj.uid_field)
         self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
+
+    def test_uidfield_as_pk(self):
+        """Test usage of UIDField as primary key"""
+        obj = TestModelWithPk.objects.create()
+        self.assertTrue(obj.pk.startswith('pk_'))
+        TestModelWithPk.objects.create()
+        another_copy_of_obj = TestModelWithPk.objects.get(pk=obj.pk)
+        self.assertEqual(obj, another_copy_of_obj)
