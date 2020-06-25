@@ -10,6 +10,13 @@ FIELD_RE = re.compile('[a-z]{3}_[A-Za-z0-9]{16}')
 
 class TestModel(UIDModel):
     uid_field = UIDField(prefix='tmp_', max_length=20, unique=True)
+    nullable_uid_field = UIDField(
+        prefix='nul_',
+        max_length=20,
+        unique=True,
+        null=True,
+        blank=True,
+    )
 
 
 class TestModelWithPk(UIDModel):
@@ -28,6 +35,12 @@ class UIDFieldTest(TestCase):
         obj = TestModel.objects.create()
         new_obj = TestModel.objects.get(id=obj.id)
         self._check_field_value(new_obj.uid_field)
+
+    def test_nullable_uid_field_value_stays_nullable(self):
+        """Test generating an UID value in UIDField"""
+        obj = TestModel.objects.create()
+        new_obj = TestModel.objects.get(id=obj.id)
+        self.assertIsNone(new_obj.nullable_uid_field)
 
     def test_uid_field_value_regeneration(self):
         """Test regenerating an UID value in UIDField"""
