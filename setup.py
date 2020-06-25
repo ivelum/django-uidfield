@@ -33,7 +33,7 @@ setup(
     name='django-uidfield',
     version=version,
     description='django-uidfield is a library which includes class UIDField for models.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     keywords='django model field',
     license='MIT',
     author='ivelum',
