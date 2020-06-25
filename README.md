@@ -10,7 +10,7 @@ Pretty UID fields for your Django models, with customizable prefixes and control
 Usage
 -----
 
-See examples below. You can optionally inherit your models from `UIDModel`, which gracefully handles IntergrityError on saving UIDs, making up to 3 attempts with random UIDs. Integrity errors should be pretty rare if you use large enough `max_length` on your fields, but you may still want to use it for extra safety.
+See examples below. You can optionally inherit your models from `UIDModel`, which gracefully handles IntegrityError on saving UIDs, making up to 3 attempts with random UIDs. Integrity errors should be pretty rare if you use large enough `max_length` on your fields, but you may still want to use it for extra safety.
 
 ```python
 from django_uidfield.fields import UIDField
