@@ -1,4 +1,4 @@
-0.2.0 (unreleased yet)
+0.2.0
 -----------------------
 * [BREAKING] UID fields defined as nullable will stop populate their value on 
 the new model instance saving. If your code relied on the old behavior, please
