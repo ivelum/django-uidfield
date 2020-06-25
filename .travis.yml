@@ -1,20 +1,19 @@
+sudo: false
 language: python
 python:
-    - "3.8"
-    - "3.7"
-    - "3.6"
-    - "3.5"
-sudo: false
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
 env:
-    - TOX_ENV=django22
-    - TOX_ENV=django30
-    - TOX_ENV=djangomaster
-matrix:
-    fast_finish: true
-    allow_failures:
-      - env: TOX_ENV=djangomaster
+  - DJANGO="Django>=2.2,<3.0" DB=sqlite
+  - DJANGO="Django>=3.0,<3.1" DB=sqlite
+jobs:
+  exclude:
+    - python: "3.5"
+      env: DJANGO="Django>=3.0,<3.1" DB=sqlite
 install:
-    - pip install tox flake8
+  - export PYTHONPATH=./:$PYTHONPATH
+  - pip install -U $DJANGO flake8
 script:
-    - flake8 django_uidfield
-    - tox -e $TOX_ENV
+  - python setup.py test
