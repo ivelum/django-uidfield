@@ -31,6 +31,26 @@ or::
     class YourModel(UIDModel):
         uid_field = UIDField(prefix='tmp_', max_length=20)
 
+
+Adding a UIDField to an existing model
+--------------------------------------
+
+You can populate the field with a data-migration::
+
+    def populate_uid(apps, schema_editor):
+        User = apps.get_model("users", "User")
+
+        for user in User.objects.all():
+            user._meta.get_field("uid").populate(user, force_renew=True)
+            user.save()
+
+
+    class Migration(migrations.Migration):
+        operations = [migrations.RunPython(code=populate_uid)]
+
+Note that the 3-attempt deduplication mechanism will not work, and you can get an error if you have a lot of objects and a small max_length.
+
+
 Changelog
 ---------
 
