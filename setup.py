@@ -19,7 +19,8 @@ class TestCommand(Command):
                 'NAME': ':memory:',
                 'ENGINE': 'django.db.backends.sqlite3'}
             },
-            INSTALLED_APPS=('django_uidfield', 'django.contrib.contenttypes')
+            INSTALLED_APPS=('django_uidfield', 'django.contrib.contenttypes'),
+            DEFAULT_AUTO_FIELD='django.db.models.AutoField',
         )
         from django.core.management import call_command
         import django
