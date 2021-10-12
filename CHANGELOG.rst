@@ -1,5 +1,5 @@
-dev
----
+0.3.0
+-----
 
 * [BREAKING] drop support for Django 3.0
 

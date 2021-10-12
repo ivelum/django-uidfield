@@ -56,8 +56,8 @@ an error if you have a lot of objects and a small max_length.
 Changelog
 ---------
 
-dev
-===
+0.3.0
+=====
 
 * [BREAKING] drop support for Django 3.0
 
