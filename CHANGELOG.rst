@@ -1,6 +1,12 @@
 dev
 ---
 
+* [BREAKING] drop support for Django 3.0
+
+* add support for Python 3.9 and 3.10
+
+* add support for Django 3.2
+
 * starting this version, migrations for UIDField include `prefix` and `chars`
   arguments, specific for the field type. They are required for proper field
   usage in data migrations. As a side effect of this update,

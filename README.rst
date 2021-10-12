@@ -4,7 +4,8 @@ About
 -----
 
 Pretty UID fields for your Django models, with customizable prefixes and
-controlled length. Tested vs. Python 3.5, 3.6, 3.7, 3.8 and Django 2.2 - 3.0.
+controlled length. Tested vs. Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10 and
+Django 2.2, 3.1, 3.2.
 
 
 Usage
@@ -57,6 +58,12 @@ Changelog
 
 dev
 ===
+
+* [BREAKING] drop support for Django 3.0
+
+* add support for Python 3.9 and 3.10
+
+* add support for Django 3.2
 
 * starting this version, migrations for UIDField include `prefix` and `chars`
   arguments, specific for the field type. They are required for proper field
