@@ -27,3 +27,10 @@ class UIDField(models.CharField):
             return self.populate(model_instance)
         else:
             return getattr(model_instance, self.attname)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        if self.prefix:
+            kwargs['prefix'] = self.prefix
+        kwargs['chars'] = self.chars
+        return name, path, args, kwargs

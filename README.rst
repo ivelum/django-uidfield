@@ -48,11 +48,22 @@ You can populate the field with a data-migration::
     class Migration(migrations.Migration):
         operations = [migrations.RunPython(code=populate_uid)]
 
-Note that the 3-attempt deduplication mechanism will not work, and you can get an error if you have a lot of objects and a small max_length.
+Note that the 3-attempt deduplication mechanism will not work, and you can get
+an error if you have a lot of objects and a small max_length.
 
 
 Changelog
 ---------
+
+dev
+===
+
+* starting this version, migrations for UIDField include `prefix` and `chars`
+  arguments, specific for the field type. They are required for proper field
+  usage in data migrations. As a side effect of this update,
+  the `makemigrations` command will generate AlterField migrations for all
+  existing UID fields in the project after upgrading from earlier versions.
+  These migrations won't perform any SQL queries, though.
 
 0.2.0
 =====

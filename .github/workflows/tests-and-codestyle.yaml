@@ -1,0 +1,116 @@
+name: Tests and codestyle
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+jobs:
+  notify-build-start:
+    # Secrets are not available for forks for security reasons, so pull
+    # request checks will fail when trying to send the Slack notification.
+    # Unfortunately, there's no way to explicitly check that a secret is
+    # available, so we check for event_name instead:
+    # https://github.com/actions/runner/issues/520
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: voxmedia/github-action-slack-notify-build@v1
+        id: slack
+        with:
+          channel_id: C0PT3267R
+          status: STARTED
+          color: warning
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    outputs:
+      status_message_id: ${{ steps.slack.outputs.message_id }}
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [3.5, 3.6, 3.7, 3.8, 3.9, "3.10"]
+        django: [2.2.*, 3.1.*, 3.2.*]
+        exclude:
+          - python: 3.5
+            django: 3.1.*
+          - python: 3.5
+            django: 3.2.*
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: update pip
+        run: |
+          pip install -U wheel
+          pip install -U setuptools
+          python -m pip install -U pip
+      - name: get pip cache dir
+        id: pip-cache
+        run: echo "::set-output name=dir::$(pip cache dir)"
+      - name: cache pip
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: pip-tests|${{ matrix.python }}|${{ matrix.django }}
+      - run: pip install -U Django==${{ matrix.django }}
+      - run: pip install -U -e .
+      - run: python setup.py test
+      - name: Notify slack fail
+        uses: voxmedia/github-action-slack-notify-build@v1
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          channel_id: C0PT3267R
+          status: FAILED
+          color: danger
+  codestyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: update pip
+        run: |
+          pip install -U wheel
+          pip install -U setuptools
+          python -m pip install -U pip
+      - name: get pip cache dir
+        id: pip-cache
+        run: echo "::set-output name=dir::$(pip cache dir)"
+      - name: cache pip
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: pip-codestyle
+      - run: pip install -U flake8
+      - run: flake8
+      - name: Notify slack fail
+        uses: voxmedia/github-action-slack-notify-build@v1
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          channel_id: C0PT3267R
+          status: FAILED
+          color: danger
+
+  notify-build-success:
+    if: ${{ github.event_name == 'push' }}
+    needs: [tests, codestyle, notify-build-start]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify slack success
+        uses: voxmedia/github-action-slack-notify-build@v1
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          message_id: ${{ needs.notify-build-start.outputs.status_message_id }}
+          channel_id: C0PT3267R
+          status: SUCCESS
+          color: good
