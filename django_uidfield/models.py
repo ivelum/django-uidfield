@@ -1,4 +1,5 @@
 from django.db import models, IntegrityError, transaction
+from django.db.utils import DatabaseError
 
 from .fields import UIDField
 
@@ -21,7 +22,7 @@ class UIDModel(models.Model):
             try:
                 with transaction.atomic():
                     return super(UIDModel, self).save(*args, **kwargs)
-            except IntegrityError as e:
+            except DatabaseError as e:
                 uid_fields = self.uid_fields()
                 if not any(field.attname in str(e) for field in uid_fields):
                     raise

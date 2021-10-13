@@ -2,6 +2,7 @@ import random
 import string
 
 from django.db import IntegrityError
+from django.db.utils import DatabaseError
 
 
 def new_uid(max_length, prefix=None,
@@ -28,6 +29,6 @@ def new_uid(max_length, prefix=None,
                 )
 
             return prefix + pure_uid
-        except IntegrityError:
+        except DatabaseError:
             if i >= max_generation_attempts:
                 raise
