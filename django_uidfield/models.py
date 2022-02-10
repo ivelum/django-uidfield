@@ -1,4 +1,4 @@
-from django.db import models, IntegrityError, transaction
+from django.db import models, IntegrityError, router, transaction
 
 from .fields import UIDField
 
@@ -17,7 +17,10 @@ class UIDModel(models.Model):
             field.populate(self, force_renew=force_renew)
 
     def save(self, *args, **kwargs):
-        using = kwargs.get('using')
+        using = (
+            kwargs.get('using') or
+            router.db_for_write(self._meta.model, instance=self)
+        )
         for save_attempt in range(self.max_save_attempts):
             try:
                 with transaction.atomic(using=using):

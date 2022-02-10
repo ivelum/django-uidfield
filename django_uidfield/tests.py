@@ -1,7 +1,7 @@
 import re
 
 from django.db.transaction import atomic
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase, TransactionTestCase, override_settings
 
 from .fields import UIDField
 from .models import UIDModel
@@ -22,6 +22,22 @@ class TestModel(UIDModel):
 
 class TestModelWithPk(UIDModel):
     id = UIDField(primary_key=True, prefix='pk_', max_length=20)
+
+
+class TestDbRouterDefault:
+    def db_for_read(self, model, **hints):
+        return 'default'
+
+    def db_for_write(self, model, **hints):
+        return 'default'
+
+
+class TestDbRouterOther:
+    def db_for_read(self, model, **hints):
+        return 'other'
+
+    def db_for_write(self, model, **hints):
+        return 'other'
 
 
 class CheckMixin:
@@ -65,12 +81,34 @@ class UIDFieldTest(CheckMixin, TestCase):
 class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
     databases = {'default', 'other'}
 
-    def test_uid_field_value_regeneration(self):
-        """Test regenerating an UID value in UIDField in correct DB"""
-        for db in ['other']:
+    def test_uid_recreation_with_explicit_routing(self):
+        """
+        Test regenerating an UID value in UIDField in correct DB
+        with explicit routing
+        """
+        for db in {'default', 'other'}:
+            # it is important to start transaction outside the create/save
+            # methods to check that it is not broken by incorrectly created
+            # inner transactions
             with atomic(using=db):
                 first_obj = TestModel.objects.using(db).create()
                 second_obj = TestModel(uid_field=first_obj.uid_field)
                 second_obj.save(using=db)
+                self._check_field_value(second_obj.uid_field)
+                self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
+
+    def test_uid_recreation_with_route_based_routing(self):
+        """
+        Test regenerating an UID value in UIDField in correct DB.
+        Routing is based on DB router.
+        """
+        for db in {'default', 'other'}:
+            # route all queries to the selected DB. the save method should
+            # correctly determine correct DB where to open transaction
+            router = f'django_uidfield.tests.TestDbRouter{db.capitalize()}'
+            with atomic(using=db), override_settings(DATABASE_ROUTERS=[router]):
+                first_obj = TestModel.objects.create()
+                second_obj = TestModel(uid_field=first_obj.uid_field)
+                second_obj.save()
                 self._check_field_value(second_obj.uid_field)
                 self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
