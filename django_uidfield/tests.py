@@ -105,7 +105,9 @@ class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
         for db in {'default', 'other'}:
             # route all queries to the selected DB. the save method should
             # correctly determine correct DB where to open transaction
-            router = f'django_uidfield.tests.TestDbRouter{db.capitalize()}'
+            router = 'django_uidfield.tests.TestDbRouter{db}'.format(
+                db=db.capitalize(),
+            )
             with atomic(using=db), override_settings(DATABASE_ROUTERS=[router]):
                 first_obj = TestModel.objects.create()
                 second_obj = TestModel(uid_field=first_obj.uid_field)
