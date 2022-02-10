@@ -17,9 +17,10 @@ class UIDModel(models.Model):
             field.populate(self, force_renew=force_renew)
 
     def save(self, *args, **kwargs):
+        using = kwargs.get('using')
         for save_attempt in range(self.max_save_attempts):
             try:
-                with transaction.atomic():
+                with transaction.atomic(using=using):
                     return super(UIDModel, self).save(*args, **kwargs)
             except IntegrityError as e:
                 uid_fields = self.uid_fields()

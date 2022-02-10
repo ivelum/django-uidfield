@@ -15,9 +15,15 @@ class TestCommand(Command):
     def run(self):
         from django.conf import settings
         settings.configure(
-            DATABASES={'default': {
-                'NAME': ':memory:',
-                'ENGINE': 'django.db.backends.sqlite3'}
+            DATABASES={
+                'default': {
+                    'NAME': ':memory:',
+                    'ENGINE': 'django.db.backends.sqlite3',
+                },
+                'other': {
+                    'NAME': ':memory:',
+                    'ENGINE': 'django.db.backends.sqlite3',
+                },
             },
             INSTALLED_APPS=('django_uidfield', 'django.contrib.contenttypes'),
             DEFAULT_AUTO_FIELD='django.db.models.AutoField',

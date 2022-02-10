@@ -1,6 +1,7 @@
 import re
 
-from django.test import TestCase
+from django.db.transaction import atomic
+from django.test import TestCase, TransactionTestCase
 
 from .fields import UIDField
 from .models import UIDModel
@@ -23,12 +24,14 @@ class TestModelWithPk(UIDModel):
     id = UIDField(primary_key=True, prefix='pk_', max_length=20)
 
 
-class UIDFieldTest(TestCase):
-    """UIDField Wrapper Tests"""
-
+class CheckMixin:
     def _check_field_value(self, value):
         self.assertEqual(len(value), 20)
         self.assertNotEquals(FIELD_RE.match(value), None)
+
+
+class UIDFieldTest(CheckMixin, TestCase):
+    """UIDField Wrapper Tests"""
 
     def test_uid_field_value_generate(self):
         """Test generating an UID value in UIDField"""
@@ -44,8 +47,7 @@ class UIDFieldTest(TestCase):
 
     def test_uid_field_value_regeneration(self):
         """Test regenerating an UID value in UIDField"""
-        obj = TestModel.objects.create()
-        first_obj = TestModel.objects.get(id=obj.id)
+        first_obj = TestModel.objects.create()
         second_obj = TestModel(uid_field=first_obj.uid_field)
         second_obj.save()
         self._check_field_value(second_obj.uid_field)
@@ -58,3 +60,17 @@ class UIDFieldTest(TestCase):
         TestModelWithPk.objects.create()
         another_copy_of_obj = TestModelWithPk.objects.get(pk=obj.pk)
         self.assertEqual(obj, another_copy_of_obj)
+
+
+class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
+    databases = {'default', 'other'}
+
+    def test_uid_field_value_regeneration(self):
+        """Test regenerating an UID value in UIDField in correct DB"""
+        for db in ['other']:
+            with atomic(using=db):
+                first_obj = TestModel.objects.using(db).create()
+                second_obj = TestModel(uid_field=first_obj.uid_field)
+                second_obj.save(using=db)
+                self._check_field_value(second_obj.uid_field)
+                self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
