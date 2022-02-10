@@ -56,6 +56,12 @@ an error if you have a lot of objects and a small max_length.
 Changelog
 ---------
 
+0.3.2
+=====
+
+* use Django DB router capabilities to determine a correct DB when it isn't
+  explicitly passed to the UIDModel.save method
+
 0.3.1
 =====
 

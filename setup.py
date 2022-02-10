@@ -1,6 +1,6 @@
 from setuptools import setup, Command
 
-version = '0.3.1'
+version = '0.3.2'
 
 
 class TestCommand(Command):
