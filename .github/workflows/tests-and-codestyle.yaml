@@ -15,7 +15,7 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: voxmedia/github-action-slack-notify-build@v1
+      - uses: ivelum/github-action-slack-notify-build@v1.6.0
         id: slack
         with:
           channel_id: C0PT3267R
@@ -60,7 +60,7 @@ jobs:
       - run: pip install -U -e .
       - run: python setup.py test
       - name: Notify slack fail
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: ivelum/github-action-slack-notify-build@v1.6.0
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -91,7 +91,7 @@ jobs:
       - run: pip install -U flake8
       - run: flake8
       - name: Notify slack fail
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: ivelum/github-action-slack-notify-build@v1.6.0
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify slack success
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: ivelum/github-action-slack-notify-build@v1.6.0
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
