@@ -56,6 +56,13 @@ an error if you have a lot of objects and a small max_length.
 Changelog
 ---------
 
+0.3.1
+=====
+
+* fixed a bug when transactions were being started in the wrong database in the
+  multi-db setup
+* added django 4.0.x to the test matrix
+
 0.3.0
 =====
 
