@@ -94,6 +94,6 @@ Changelog
 * add support for Django 2.2, and 3.0 versions and Python 3.7, and 3.8 versions
 
 .. |PyPI latest| image:: https://img.shields.io/pypi/v/django-uidfield.svg?maxAge=120
-   :target: https://pypi.python.org/pypi/django-reversion
+   :target: https://pypi.python.org/pypi/django-uidfield
 .. |TravisCI| image:: https://travis-ci.org/ivelum/django-uidfield.svg?branch=master
    :target: https://travis-ci.org/ivelum/django-uidfield
