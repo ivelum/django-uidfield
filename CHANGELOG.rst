@@ -1,3 +1,8 @@
+dev
+---
+
+* Support Django 4.1.x
+
 0.3.2
 -----
 
