@@ -15,6 +15,10 @@ class UIDField(models.CharField):
         self.chars = chars
         super(UIDField, self).__init__(*args, **kwargs)
 
+    @property
+    def non_db_attrs(self):
+        return super().non_db_attrs + ('prefix', 'chars')
+
     def populate(self, model_instance, force_renew=False):
         uid = getattr(model_instance, self.attname, None)
         if (not uid and not self.null) or force_renew:

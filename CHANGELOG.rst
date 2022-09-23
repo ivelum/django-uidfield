@@ -2,6 +2,8 @@ dev
 ---
 
 * Support Django 4.1.x
+* Add the `non_db_attr` property to the UIDField to avoid no-op DB alter field updates
+  (Django 4.1+)
 
 0.3.2
 -----
