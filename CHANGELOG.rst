@@ -1,3 +1,7 @@
+0.3.4
+-----
+* add support for Python 3.11
+
 0.3.3
 -----
 
