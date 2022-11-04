@@ -4,7 +4,7 @@ About
 -----
 
 Pretty UID fields for your Django models, with customizable prefixes and
-controlled length. Tested vs. Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10 and
+controlled length. Tested vs. Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11 and
 Django 2.2, 3.1, 3.2, 4.0, 4.1.
 
 
