@@ -10,7 +10,12 @@ FIELD_RE = re.compile('[a-z]{3}_[A-Za-z0-9]{16}')
 
 
 class TestModel(UIDModel):
-    uid_field = UIDField(prefix='tmp_', max_length=20, unique=True)
+    uid_field = UIDField(
+        prefix='tmp_',
+        alternative_prefixes=['alt_', 'other_'],
+        max_length=20,
+        unique=True,
+    )
     nullable_uid_field = UIDField(
         prefix='nul_',
         max_length=20,
@@ -76,6 +81,29 @@ class UIDFieldTest(CheckMixin, TestCase):
         TestModelWithPk.objects.create()
         another_copy_of_obj = TestModelWithPk.objects.get(pk=obj.pk)
         self.assertEqual(obj, another_copy_of_obj)
+
+    def test_lookup_with_alternative_prefix(self):
+        """Test querying UIDField with alternative prefixes"""
+        obj = TestModel.objects.create()
+
+        prefix_length = len(TestModel.uid_field.field.prefix)
+        prefix, data = obj.uid_field[:prefix_length], obj.uid_field[prefix_length:]
+
+        # We can use valid alternative prefixes to get our object
+        for alt_prefix in ['alt_', 'other_']:
+            alt_uid = alt_prefix + data
+            alt_obj = TestModel.objects.get(uid_field=alt_uid)
+            self.assertEqual(obj, alt_obj)
+
+            # Other lookups like __in also work
+            second_uid = alt_prefix + 'somegarbage'
+            alt_obj = TestModel.objects.get(uid_field__in=[second_uid, alt_uid])
+            self.assertEqual(obj, alt_obj)
+
+        # But we cannot just use a random prefix
+        alt_id = 'garbage_' + data
+        with self.assertRaises(TestModel.DoesNotExist):
+            TestModel.objects.get(uid_field=alt_id)
 
 
 class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
