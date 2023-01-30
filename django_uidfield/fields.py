@@ -26,7 +26,11 @@ class UIDField(models.CharField):
 
     @property
     def non_db_attrs(self):
-        return super().non_db_attrs + ('prefix', 'chars', 'alternative_prefixes')
+        return super().non_db_attrs + (
+            'prefix',
+            'chars',
+            'alternative_prefixes',
+        )
 
     def populate(self, model_instance, force_renew=False):
         uid = getattr(model_instance, self.attname, None)
