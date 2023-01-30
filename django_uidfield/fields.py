@@ -15,7 +15,7 @@ class UIDField(models.CharField):
         chars=string.ascii_letters + string.digits,
         alternative_prefixes=None,
         *args,
-        **kwargs,
+        **kwargs
     ):
         if alternative_prefixes is None:
             alternative_prefixes = []
