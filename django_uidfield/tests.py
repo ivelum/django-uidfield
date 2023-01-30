@@ -86,7 +86,7 @@ class UIDFieldTest(CheckMixin, TestCase):
         """Test querying UIDField with alternative prefixes"""
         obj = TestModel.objects.create()
 
-        prefix_length = len(TestModel.uid_field.field.prefix)
+        prefix_length = len('tmp_')
         _, data = obj.uid_field[:prefix_length], obj.uid_field[prefix_length:]
 
         # We can use valid alternative prefixes to get our object
