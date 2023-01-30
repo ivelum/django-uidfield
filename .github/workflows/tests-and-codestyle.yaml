@@ -27,7 +27,7 @@ jobs:
       status_message_id: ${{ steps.slack.outputs.message_id }}
 
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04  # No python 3.5 / 3.6 for ubuntu-22
     strategy:
       fail-fast: false
       matrix:
