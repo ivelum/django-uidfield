@@ -1,6 +1,9 @@
+import re
+
 from setuptools import setup, Command
 
-version = '0.3.4'
+with open('django_uidfield/__init__.py', encoding='utf-8') as f:
+    version = re.search(r"__version__ = '(.*?)'", f.read()).group(1)
 
 
 class TestCommand(Command):
