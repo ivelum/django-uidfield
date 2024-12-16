@@ -1,4 +1,9 @@
-|PyPI latest| |TravisCI|
+|PyPI latest| |GitHub Actions|
+
+.. |PyPI latest| image:: https://img.shields.io/pypi/v/django-uidfield.svg?maxAge=120
+   :target: https://pypi.python.org/pypi/django-uidfield
+.. |GitHub Actions| image:: https://github.com/ivelum/django-uidfield/actions/workflows/tests-and-codestyle.yaml/badge.svg
+   :target: https://github.com/ivelum/django-uidfield/actions/workflows/tests-and-codestyle.yaml
 
 About
 -----
@@ -54,8 +59,3 @@ an error if you have a lot of objects and a small max_length.
 
 
 `Changelog <CHANGELOG.rst>`_
-
-.. |PyPI latest| image:: https://img.shields.io/pypi/v/django-uidfield.svg?maxAge=120
-   :target: https://pypi.python.org/pypi/django-uidfield
-.. |TravisCI| image:: https://travis-ci.org/ivelum/django-uidfield.svg?branch=master
-   :target: https://travis-ci.org/ivelum/django-uidfield
