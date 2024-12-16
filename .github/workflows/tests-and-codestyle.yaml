@@ -90,6 +90,9 @@ jobs:
           - {django: '==2.2.*', python: '3.5', ubuntu: '20.04'}
     runs-on: ubuntu-${{ matrix.ubuntu }}
     steps:
+      - name: Ignore certificate verification on Python 3.5
+        if: matrix.python == 3.5
+        run: echo 'PIP_TRUSTED_HOST=pypi.python.org pypi.org files.pythonhosted.org' >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
