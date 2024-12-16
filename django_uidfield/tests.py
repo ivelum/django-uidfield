@@ -43,7 +43,7 @@ class TestDbRouterOther:
 class CheckMixin:
     def _check_field_value(self, value):
         self.assertEqual(len(value), 20)
-        self.assertNotEquals(FIELD_RE.match(value), None)
+        self.assertNotEqual(FIELD_RE.match(value), None)
 
 
 class UIDFieldTest(CheckMixin, TestCase):
@@ -67,7 +67,7 @@ class UIDFieldTest(CheckMixin, TestCase):
         second_obj = TestModel(uid_field=first_obj.uid_field)
         second_obj.save()
         self._check_field_value(second_obj.uid_field)
-        self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
+        self.assertNotEqual(first_obj.uid_field, second_obj.uid_field)
 
     def test_uidfield_as_pk(self):
         """Test usage of UIDField as primary key"""
@@ -95,7 +95,7 @@ class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
                 second_obj = TestModel(uid_field=first_obj.uid_field)
                 second_obj.save(using=db)
                 self._check_field_value(second_obj.uid_field)
-                self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
+                self.assertNotEqual(first_obj.uid_field, second_obj.uid_field)
 
     def test_uid_recreation_with_route_based_routing(self):
         """
@@ -113,4 +113,4 @@ class UIDFieldMultidbTest(CheckMixin, TransactionTestCase):
                 second_obj = TestModel(uid_field=first_obj.uid_field)
                 second_obj.save()
                 self._check_field_value(second_obj.uid_field)
-                self.assertNotEquals(first_obj.uid_field, second_obj.uid_field)
+                self.assertNotEqual(first_obj.uid_field, second_obj.uid_field)
