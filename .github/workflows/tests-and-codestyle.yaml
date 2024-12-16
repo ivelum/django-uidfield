@@ -35,59 +35,59 @@ jobs:
           # https://github.com/actions/python-versions/blob/main/versions-manifest.json
 
           # https://docs.djangoproject.com/en/dev/releases/5.1/
-          - {django: '==5.1.*', python: '3.13', ubuntu: '24.04'}
-          - {django: '==5.1.*', python: '3.12', ubuntu: '24.04'}
-          - {django: '==5.1.*', python: '3.11', ubuntu: '24.04'}
-          - {django: '==5.1.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '5.1.*', python: '3.13', ubuntu: '24.04'}
+          - {django: '5.1.*', python: '3.12', ubuntu: '24.04'}
+          - {django: '5.1.*', python: '3.11', ubuntu: '24.04'}
+          - {django: '5.1.*', python: '3.10', ubuntu: '24.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/5.0/
-          - {django: '==5.0.*', python: '3.12', ubuntu: '24.04'}
-          - {django: '==5.0.*', python: '3.11', ubuntu: '24.04'}
-          - {django: '==5.0.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '5.0.*', python: '3.12', ubuntu: '24.04'}
+          - {django: '5.0.*', python: '3.11', ubuntu: '24.04'}
+          - {django: '5.0.*', python: '3.10', ubuntu: '24.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/4.2/
-          - {django: '==4.2.*', python: '3.12', ubuntu: '24.04'}
-          - {django: '==4.2.*', python: '3.11', ubuntu: '24.04'}
-          - {django: '==4.2.*', python: '3.10', ubuntu: '24.04'}
-          - {django: '==4.2.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==4.2.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '4.2.*', python: '3.12', ubuntu: '24.04'}
+          - {django: '4.2.*', python: '3.11', ubuntu: '24.04'}
+          - {django: '4.2.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '4.2.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '4.2.*', python: '3.8', ubuntu: '24.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/4.1/
-          - {django: '==4.1.*', python: '3.11', ubuntu: '24.04'}
-          - {django: '==4.1.*', python: '3.10', ubuntu: '24.04'}
-          - {django: '==4.1.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==4.1.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '4.1.*', python: '3.11', ubuntu: '24.04'}
+          - {django: '4.1.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '4.1.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '4.1.*', python: '3.8', ubuntu: '24.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/4.0/
-          - {django: '==4.0.*', python: '3.10', ubuntu: '24.04'}
-          - {django: '==4.0.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==4.0.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '4.0.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '4.0.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '4.0.*', python: '3.8', ubuntu: '24.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/3.2/
-          - {django: '==3.2.*', python: '3.10', ubuntu: '24.04'}
-          - {django: '==3.2.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==3.2.*', python: '3.8', ubuntu: '24.04'}
-          - {django: '==3.2.*', python: '3.7', ubuntu: '22.04'}
-          - {django: '==3.2.*', python: '3.6', ubuntu: '20.04'}
+          - {django: '3.2.*', python: '3.10', ubuntu: '24.04'}
+          - {django: '3.2.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '3.2.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '3.2.*', python: '3.7', ubuntu: '22.04'}
+          - {django: '3.2.*', python: '3.6', ubuntu: '20.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/3.1/
-          - {django: '==3.1.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==3.1.*', python: '3.8', ubuntu: '24.04'}
-          - {django: '==3.1.*', python: '3.7', ubuntu: '22.04'}
-          - {django: '==3.1.*', python: '3.6', ubuntu: '20.04'}
+          - {django: '3.1.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '3.1.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '3.1.*', python: '3.7', ubuntu: '22.04'}
+          - {django: '3.1.*', python: '3.6', ubuntu: '20.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/3.0/
-          - {django: '==3.0.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==3.0.*', python: '3.8', ubuntu: '24.04'}
-          - {django: '==3.0.*', python: '3.7', ubuntu: '22.04'}
-          - {django: '==3.0.*', python: '3.6', ubuntu: '20.04'}
+          - {django: '3.0.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '3.0.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '3.0.*', python: '3.7', ubuntu: '22.04'}
+          - {django: '3.0.*', python: '3.6', ubuntu: '20.04'}
 
           # https://docs.djangoproject.com/en/dev/releases/2.2/
-          - {django: '==2.2.*', python: '3.9', ubuntu: '24.04'}
-          - {django: '==2.2.*', python: '3.8', ubuntu: '24.04'}
-          - {django: '==2.2.*', python: '3.7', ubuntu: '22.04'}
-          - {django: '==2.2.*', python: '3.6', ubuntu: '20.04'}
-          - {django: '==2.2.*', python: '3.5', ubuntu: '20.04'}
+          - {django: '2.2.*', python: '3.9', ubuntu: '24.04'}
+          - {django: '2.2.*', python: '3.8', ubuntu: '24.04'}
+          - {django: '2.2.*', python: '3.7', ubuntu: '22.04'}
+          - {django: '2.2.*', python: '3.6', ubuntu: '20.04'}
+          - {django: '2.2.*', python: '3.5', ubuntu: '20.04'}
     runs-on: ubuntu-${{ matrix.ubuntu }}
     steps:
       - name: Ignore certificate verification on Python 3.5
@@ -110,7 +110,7 @@ jobs:
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: pip-tests|${{ matrix.python }}|${{ matrix.django }}
-      - run: pip install Django${{ matrix.django }}
+      - run: pip install Django==${{ matrix.django }}
       - run: pip install -e .
       - run: python setup.py test
       - name: Notify slack fail
