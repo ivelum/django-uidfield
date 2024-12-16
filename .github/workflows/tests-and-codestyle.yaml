@@ -15,7 +15,7 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ivelum/github-action-slack-notify-build@v1.6.0
+      - uses: ivelum/github-action-slack-notify-build@v1.7.2
         id: slack
         with:
           channel_id: C0PT3267R
@@ -90,8 +90,8 @@ jobs:
           - {django: '==2.2.*', python: '3.5', ubuntu: '20.04'}
     runs-on: ubuntu-${{ matrix.ubuntu }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
       - name: update pip
@@ -103,7 +103,7 @@ jobs:
         id: pip-cache
         run: echo "::set-output name=dir::$(pip cache dir)"
       - name: cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: pip-tests|${{ matrix.python }}|${{ matrix.django }}
@@ -111,7 +111,7 @@ jobs:
       - run: pip install -e .
       - run: python setup.py test
       - name: Notify slack fail
-        uses: ivelum/github-action-slack-notify-build@v1.6.0
+        uses: ivelum/github-action-slack-notify-build@v1.7.2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -122,8 +122,8 @@ jobs:
   codestyle:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: update pip
@@ -135,14 +135,14 @@ jobs:
         id: pip-cache
         run: echo "::set-output name=dir::$(pip cache dir)"
       - name: cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: pip-codestyle
       - run: pip install -U flake8
       - run: flake8
       - name: Notify slack fail
-        uses: ivelum/github-action-slack-notify-build@v1.6.0
+        uses: ivelum/github-action-slack-notify-build@v1.7.2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -157,7 +157,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify slack success
-        uses: ivelum/github-action-slack-notify-build@v1.6.0
+        uses: ivelum/github-action-slack-notify-build@v1.7.2
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
