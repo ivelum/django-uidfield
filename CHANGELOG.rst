@@ -1,5 +1,14 @@
+0.3.5
+-----
+
+* Add support for Python 3.11, 3.12, 3.13
+* Add support for Django 4.2, 5.0, 5.1
+* Export the package version as a global variable without using the deprecated
+  pkg_resources API
+
 0.3.4
 -----
+
 * add support for Python 3.11
 
 0.3.3
