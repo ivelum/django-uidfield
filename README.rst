@@ -19,7 +19,9 @@ Usage
 See examples below. You can optionally inherit your models from `UIDModel`,
 which gracefully handles IntegrityError on saving UIDs, making up to 3 attempts
 with random UIDs. Integrity errors should be pretty rare if you use large enough
-`max_length` on your fields, but you may still want to use it for extra safety::
+`max_length` on your fields, but you may still want to use it for extra safety:
+
+.. code-block:: python
 
     from django_uidfield.fields import UIDField
 
@@ -28,7 +30,9 @@ with random UIDs. Integrity errors should be pretty rare if you use large enough
 
     # the value will be like 'tmp_Akw81LmtPqS93dKb'
 
-or::
+or:
+
+.. code-block:: python
 
     from django_uidfield.models import UIDModel
     from django_uidfield.fields import UIDField
@@ -41,7 +45,9 @@ or::
 Adding a UIDField to an existing model
 --------------------------------------
 
-You can populate the field with a data-migration::
+You can populate the field with a data-migration:
+
+.. code-block:: python
 
     def populate_uid(apps, schema_editor):
         User = apps.get_model("users", "User")
